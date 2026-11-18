@@ -19,7 +19,21 @@ export default function Home() {
           </Button>
         </div>
       </header>
-      <main></main>
+      <main>
+        <section className="px-8 pt-32 pb-16 lg:px-16 lg:pt-36 lg:pb-24">
+          <div className="max-w-3xl">
+            <h1 className="text-5xl font-extrabold tracking-tight sm:text-6xl lg:text-7xl">
+              W TWOIM <br /> KIERUNKU
+            </h1>
+            <p className="mt-6 text-lg leading-7">
+              Zatrzymaj się na chwilę.
+              <br /> <br /> Przyjrzyj się temu, jak korzystasz z mediów
+              społecznościowych i sprawdź,
+              <strong>co jest dla ciebie ważne</strong>.
+            </p>
+          </div>
+        </section>
+      </main>
     </div>
   );
 }
