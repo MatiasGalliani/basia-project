@@ -1,31 +1,25 @@
-import {
-  NavigationMenu,
-  NavigationMenuContent,
-  NavigationMenuItem,
-  NavigationMenuLink,
-  NavigationMenuList,
-  NavigationMenuTrigger,
-} from "@/components/ui/navigation-menu";
+import { Button } from "@/components/ui/button";
 
 export default function Home() {
   return (
     <div>
-      <div className="sticky top-0 w-full h-16 bg-gray-200 text-white flex items-center px-6 z-50">
-        <NavigationMenu>
-          <NavigationMenuList>
-            <NavigationMenuItem className="bg-black">
-              <NavigationMenuTrigger className="bg-black">
-                Item One
-              </NavigationMenuTrigger>
-              <NavigationMenuContent className="bg-black">
-                <NavigationMenuLink className="bg-black">
-                  Link
-                </NavigationMenuLink>
-              </NavigationMenuContent>
-            </NavigationMenuItem>
-          </NavigationMenuList>
-        </NavigationMenu>
-      </div>
+      <header className="flex items-center sticky top-0 bg-gray-200 h-16 px-6">
+        <div className="flex items-center z-50 ml-auto">
+          <Button variant="ghost" className="cursor-pointer">
+            O projekcie
+          </Button>
+          <Button variant="ghost" className="cursor-pointer">
+            Praktyka
+          </Button>
+          <Button variant="ghost" className="cursor-pointer">
+            Psychologia korzystania
+          </Button>
+          <Button variant="ghost" className="cursor-pointer">
+            Literatura
+          </Button>
+        </div>
+      </header>
+      <main></main>
     </div>
   );
 }
