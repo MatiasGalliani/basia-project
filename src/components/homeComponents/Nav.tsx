@@ -1,10 +1,11 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, Fragment } from "react";
 import { Button } from "@/components/ui/button";
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
+import { Separator } from "@/components/ui/separator";
 import { List, X } from "@phosphor-icons/react";
 import { cn } from "@/lib/utils";
 
@@ -56,7 +57,7 @@ export default function Nav() {
           : "border-b border-transparent",
       )}
     >
-      <div className="max-w-7xl mx-auto h-16 px-4 sm:px-8 md:px-12 lg:px-16 flex items-center justify-between">
+      <div className="max-w-7xl mx-auto h-16 px-4 sm:px-8 md:px-12 lg:px-16 flex items-center justify-end md:justify-between">
         <nav className="hidden md:flex items-center gap-1 z-50 mx-auto">
           {NAV_ITEMS.map((item) => (
             <Button
@@ -70,7 +71,7 @@ export default function Nav() {
           ))}
         </nav>
 
-        <div className="md:hidden flex items-center">
+        <div className="md:hidden flex items-center ml-auto">
           <Popover open={isOpen} onOpenChange={setIsOpen}>
             <PopoverTrigger
               render={
@@ -91,18 +92,20 @@ export default function Nav() {
             <PopoverContent
               align="end"
               sideOffset={8}
-              className="w-56 p-2 flex flex-col gap-1 rounded-xl bg-gray-200/95 backdrop-blur-lg border border-gray-300 shadow-lg"
+              className="w-56 p-2 flex flex-col rounded-xl bg-gray-300/95 backdrop-blur-lg border border-gray-400/50 shadow-lg"
             >
-              <nav className="flex flex-col gap-1" aria-label="Nawigacja mobilna">
-                {NAV_ITEMS.map((item) => (
-                  <Button
-                    key={item.href}
-                    variant="ghost"
-                    className="w-full justify-start cursor-pointer text-sm font-medium py-2.5 px-3 h-auto text-neutral-800 hover:bg-gray-300/60 rounded-lg"
-                    onClick={() => handleNavClick(item.href)}
-                  >
-                    {item.label}
-                  </Button>
+              <nav className="flex flex-col" aria-label="Nawigacja mobilna">
+                {NAV_ITEMS.map((item, index) => (
+                  <Fragment key={item.href}>
+                    {index > 0 && <Separator className="my-1 bg-gray-400/60" />}
+                    <Button
+                      variant="ghost"
+                      className="w-full justify-start cursor-pointer text-sm font-medium py-2.5 px-3 h-auto text-neutral-800 hover:bg-gray-400/50 rounded-lg"
+                      onClick={() => handleNavClick(item.href)}
+                    >
+                      {item.label}
+                    </Button>
+                  </Fragment>
                 ))}
               </nav>
             </PopoverContent>
