@@ -1,5 +1,10 @@
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
 import { List, X } from "@phosphor-icons/react";
 import { cn } from "@/lib/utils";
 
@@ -30,16 +35,6 @@ export default function Nav() {
     };
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
-  }, []);
-
-  useEffect(() => {
-    const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === "Escape") {
-        setIsOpen(false);
-      }
-    };
-    window.addEventListener("keydown", handleKeyDown);
-    return () => window.removeEventListener("keydown", handleKeyDown);
   }, []);
 
   const handleNavClick = (href: string) => {
@@ -76,40 +71,44 @@ export default function Nav() {
         </nav>
 
         <div className="md:hidden flex items-center">
-          <Button
-            variant="ghost"
-            size="icon"
-            className="cursor-pointer text-neutral-800 hover:bg-gray-300/60 rounded-md"
-            onClick={() => setIsOpen((prev) => !prev)}
-            aria-label={isOpen ? "Zamknij menu" : "Otwórz menu"}
-            aria-expanded={isOpen}
-          >
-            {isOpen ? (
-              <X size={22} weight="bold" />
-            ) : (
-              <List size={22} weight="bold" />
-            )}
-          </Button>
+          <Popover open={isOpen} onOpenChange={setIsOpen}>
+            <PopoverTrigger
+              render={
+                <Button
+                  variant="ghost"
+                  size="icon"
+                  className="cursor-pointer text-neutral-800 hover:bg-gray-300/60 rounded-md"
+                  aria-label={isOpen ? "Zamknij menu" : "Otwórz menu"}
+                >
+                  {isOpen ? (
+                    <X size={22} weight="bold" />
+                  ) : (
+                    <List size={22} weight="bold" />
+                  )}
+                </Button>
+              }
+            />
+            <PopoverContent
+              align="end"
+              sideOffset={8}
+              className="w-56 p-2 flex flex-col gap-1 rounded-xl bg-gray-200/95 backdrop-blur-lg border border-gray-300 shadow-lg"
+            >
+              <nav className="flex flex-col gap-1" aria-label="Nawigacja mobilna">
+                {NAV_ITEMS.map((item) => (
+                  <Button
+                    key={item.href}
+                    variant="ghost"
+                    className="w-full justify-start cursor-pointer text-sm font-medium py-2.5 px-3 h-auto text-neutral-800 hover:bg-gray-300/60 rounded-lg"
+                    onClick={() => handleNavClick(item.href)}
+                  >
+                    {item.label}
+                  </Button>
+                ))}
+              </nav>
+            </PopoverContent>
+          </Popover>
         </div>
       </div>
-
-      {isOpen && (
-        <nav
-          className="md:hidden border-t border-gray-300/80 bg-gray-200/95 backdrop-blur-lg px-4 py-3 flex flex-col gap-1 shadow-lg animate-in fade-in slide-in-from-top-2 duration-150"
-          aria-label="Nawigacja mobilna"
-        >
-          {NAV_ITEMS.map((item) => (
-            <Button
-              key={item.href}
-              variant="ghost"
-              className="w-full justify-start cursor-pointer text-sm font-medium py-3 px-3.5 h-auto text-neutral-800 hover:bg-gray-300/60 rounded-lg"
-              onClick={() => handleNavClick(item.href)}
-            >
-              {item.label}
-            </Button>
-          ))}
-        </nav>
-      )}
     </header>
   );
 }
