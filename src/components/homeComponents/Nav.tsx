@@ -92,15 +92,15 @@ export default function Nav() {
             <PopoverContent
               align="end"
               sideOffset={8}
-              className="w-56 p-2 flex flex-col rounded-xl bg-gray-300/95 backdrop-blur-lg border border-gray-400/50 shadow-lg"
+              className="w-48 p-1.5 flex flex-col rounded-xl bg-gray-200/75 backdrop-blur-md border border-gray-300/70 shadow-lg"
             >
               <nav className="flex flex-col" aria-label="Nawigacja mobilna">
                 {NAV_ITEMS.map((item, index) => (
                   <Fragment key={item.href}>
-                    {index > 0 && <Separator className="my-1 bg-gray-400/60" />}
+                    {index > 0 && <Separator className="my-0.5 bg-gray-300/80" />}
                     <Button
                       variant="ghost"
-                      className="w-full justify-start cursor-pointer text-sm font-medium py-2.5 px-3 h-auto text-neutral-800 hover:bg-gray-400/50 rounded-lg"
+                      className="w-full justify-start cursor-pointer text-xs font-medium py-1.5 px-2.5 h-auto text-neutral-800 hover:bg-gray-300/60 rounded-md"
                       onClick={() => handleNavClick(item.href)}
                     >
                       {item.label}
