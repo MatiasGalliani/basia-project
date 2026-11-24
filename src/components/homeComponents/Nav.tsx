@@ -8,12 +8,13 @@ import {
 import { Separator } from "@/components/ui/separator";
 import { List, X } from "@phosphor-icons/react";
 import { cn } from "@/lib/utils";
+import { useNavigate } from "react-router";
 
 const NAV_ITEMS = [
-  { label: "O projekcie", href: "#o-projekcie" },
-  { label: "Praktyka", href: "#praktyka" },
-  { label: "Psychologia korzystania", href: "#psychologia" },
-  { label: "Literatura", href: "#literatura" },
+  { label: "O projekcie", href: "/" },
+  { label: "Praktyka", href: "/praktyka" },
+  { label: "Psychologia korzystania", href: "/psychologia" },
+  { label: "Literatura", href: "/literatura" },
 ];
 
 export default function Nav() {
@@ -38,6 +39,8 @@ export default function Nav() {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
+  const navigate = useNavigate();
+
   const handleNavClick = (href: string) => {
     setIsOpen(false);
     if (href.startsWith("#")) {
@@ -45,6 +48,8 @@ export default function Nav() {
       if (target) {
         target.scrollIntoView({ behavior: "smooth" });
       }
+    } else {
+      navigate(href);
     }
   };
 
@@ -97,7 +102,9 @@ export default function Nav() {
               <nav className="flex flex-col" aria-label="Nawigacja mobilna">
                 {NAV_ITEMS.map((item, index) => (
                   <Fragment key={item.href}>
-                    {index > 0 && <Separator className="my-0.5 bg-gray-300/80" />}
+                    {index > 0 && (
+                      <Separator className="my-0.5 bg-gray-300/80" />
+                    )}
                     <Button
                       variant="ghost"
                       className="w-full justify-start cursor-pointer text-xs font-medium py-1.5 px-2.5 h-auto text-neutral-800 hover:bg-gray-300/60 rounded-md"
